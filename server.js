@@ -11,8 +11,11 @@ app.use(bodyParser.urlencoded({
 
 app
     .route('/webhooks/inbound-message')    
-    .post(handleInboundMessage);
-function handleInboundMessage(request, response){
+    .post(handleWebhook);
+app
+    .route('webhooks/status')
+    .post(handleWebhook)
+function handleWebhook(request, response){
     const payload = Object.assign(request.query, request.body)    
     try{
         let token = request.headers.authorization.split(" ")[1]
