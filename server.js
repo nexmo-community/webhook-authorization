@@ -13,9 +13,9 @@ app
     .route('/webhooks/inbound-message')    
     .post(handleInboundMessage);
 function handleInboundMessage(request, response){
-    const payload = Object.assign(request.query, request.body)
-    let token = request.headers.authorization.split(" ")[1]
+    const payload = Object.assign(request.query, request.body)    
     try{
+        let token = request.headers.authorization.split(" ")[1]
         var decoded = jwt.verify(token, NEXMO_API_SIGNATURE_SECRET, {algorithms:['HS256']});
         if(sha256(JSON.stringify(payload))!=decoded["payload_hash"]){
             console.log("tampering detected");
