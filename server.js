@@ -3,7 +3,10 @@ const jwt = require("jsonwebtoken");
 const sha256 = require('js-sha256');
 const app = require('express')()
 const bodyParser = require('body-parser')
-const NEXMO_API_SIGNATURE_SECRET = process.env.NEXMO_API_SIGNATURE_SECRET || ''
+const NEXMO_API_SIGNATURE_SECRET = process.env.NEXMO_API_SIGNATURE_SECRET
+if(!NEXMO_API_SIGNATURE_SECRET){
+    throw "Missing Signature Secret";
+}
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({
   extended: true
